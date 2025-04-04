@@ -3,9 +3,9 @@ import { Helmet } from "react-helmet-async";
 import { ArrowLeft, ArrowRight, Share2, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import matter from "gray-matter";
+import * as matter from "gray-matter";
 import { readdirSync, readFileSync } from "fs";
-import path from "path";
+import * as path from "path";
 
 const BlogPostPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -68,8 +68,8 @@ const BlogPostPage = () => {
       <section className="py-20 bg-gradient-to-b from-white to-[#F0F7F4]">
         <div className="container mx-auto px-4">
           <div className="text-sm text-gray-500 mb-6">
-            <Link to="/" className="hover:underline">Главная</Link> >{" "}
-            <Link to="/blog" className="hover:underline">Блог</Link> >{" "}
+            <Link to="/" className="hover:underline">Главная</Link>{" "}
+            <Link to="/blog" className="hover:underline">Блог</Link>{" "}
             <span className="text-gray-700">{post.title}</span>
           </div>
 
