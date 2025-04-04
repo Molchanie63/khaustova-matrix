@@ -4,19 +4,57 @@ import { ArrowLeft, ArrowRight, Share2, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import * as matter from "gray-matter";
-import { readdirSync, readFileSync } from "fs";
-import * as path from "path";
+import { useEffect, useState } from "react";
+
+interface BlogPost {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  category: string;
+  date: string;
+  displayDate: string;
+  readingTime: string;
+  content: string;
+}
 
 const BlogPostPage = () => {
   const { id } = useParams<{ id: string }>();
-  const postsDir = path.join(process.cwd(), "src/data/blog");
-  const files = readdirSync(postsDir);
-  const posts = files.map((file) => {
-    const filePath = path.join(postsDir, file);
-    const fileContent = readFileSync(filePath, "utf-8");
-    const { data, content } = matter(fileContent);
-    return { id: file.replace(".md", ""), ...data, content };
-  });
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadPosts = async () => {
+      try {
+        // Динамически импортируем все Markdown-файлы из папки src/data/blog
+        const context = import.meta.glob("/src/data/blog/*.md", { as: "raw", eager: false });
+        const loadedPosts: BlogPost[] = [];
+
+        for (const [filePath, loadModule] of Object.entries(context)) {
+          const fileContent = await loadModule();
+          const { data, content } = matter(fileContent as string);
+          const fileName = filePath.split("/").pop()?.replace(".md", "") || "";
+          loadedPosts.push({
+            id: fileName,
+            content,
+            ...data,
+          } as BlogPost);
+        }
+
+        setPosts(loadedPosts);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error loading posts:", error);
+        setLoading(false);
+      }
+    };
+
+    loadPosts();
+  }, []);
+
+  if (loading) {
+    return <div className="container mx-auto px-4 py-20 text-center">Загрузка...</div>;
+  }
 
   const post = posts.find((p) => p.id === id);
   const currentIndex = posts.findIndex((p) => p.id === id);
@@ -68,8 +106,8 @@ const BlogPostPage = () => {
       <section className="py-20 bg-gradient-to-b from-white to-[#F0F7F4]">
         <div className="container mx-auto px-4">
           <div className="text-sm text-gray-500 mb-6">
-            <Link to="/" className="hover:underline">Главная</Link>{" "}
-            <Link to="/blog" className="hover:underline">Блог</Link>{" "}
+            <Link to="/" className="hover:underline">Главная</Link> {" > "}{" "}
+            <Link to="/blog" className="hover:underline">Блог</Link> {" > "}{" "}
             <span className="text-gray-700">{post.title}</span>
           </div>
 
