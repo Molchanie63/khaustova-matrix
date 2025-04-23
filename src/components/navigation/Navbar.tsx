@@ -1,14 +1,12 @@
-
 import { useState, useEffect } from "react";
 import { 
   NavigationMenu, 
   NavigationMenuItem, 
-  NavigationMenuLink, 
-  NavigationMenuList, 
-  navigationMenuTriggerStyle 
+  NavigationMenuLink 
 } from "@/components/ui/navigation-menu";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface NavbarProps {
   onScrollToSection: (id: string) => void;
@@ -30,16 +28,19 @@ export const Navbar = ({ onScrollToSection }: NavbarProps) => {
   }, []);
 
   const navItems = [
-    { id: 'about', label: 'Обо мне' },
-    { id: 'services', label: 'Услуги' },
-    { id: 'calculator', label: 'Калькулятор' },
-    { id: 'blog', label: 'Блог' },
-    { id: 'faq', label: 'FAQ' },
-    { id: 'contact', label: 'Контакты' },
+    { id: "about", label: "Обо мне", isLink: false },
+    { id: "services", label: "Услуги", isLink: false },
+    { id: "calculator", label: "Калькулятор", isLink: false },
+    { id: "blog", label: "Блог", path: "/blog", isLink: true },
+    { id: "testimonials", label: "Отзывы", isLink: false }, // Изменяем на прокрутку к testimonials
+    { id: "faq", label: "FAQ", isLink: false },
+    { id: "contact", label: "Контакты", isLink: false },
   ];
 
-  const handleNavClick = (id: string) => {
-    onScrollToSection(id);
+  const handleNavClick = (id: string, isLink: boolean) => {
+    if (!isLink) {
+      onScrollToSection(id);
+    }
     if (isMobile) {
       setMobileMenuOpen(false);
     }
@@ -47,39 +48,48 @@ export const Navbar = ({ onScrollToSection }: NavbarProps) => {
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? "bg-white/95 backdrop-blur-md shadow-sm" 
-          : "bg-gray-900/90 backdrop-blur-sm"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? "bg-white/95 backdrop-blur-md shadow-sm" : "bg-gray-900/90 backdrop-blur-sm"}`}
     >
       <div className="container mx-auto px-4 py-3">
         <div className="flex justify-between items-center">
-          <div className={`font-bold text-xl transition-all duration-300 ${
-            isScrolled ? "text-gray-800" : "text-white drop-shadow-md"
-          }`}>
-            Цифровой психоанализ
+          <div className={`font-bold text-xl transition-all duration-300 ${isScrolled ? "text-gray-800" : "text-white drop-shadow-md"}`}>
+            <Link to="/">Цифровой психоанализ</Link>
           </div>
 
           {/* Desktop Navigation */}
           {!isMobile && (
             <NavigationMenu>
-              <NavigationMenuList>
+              <div className="flex space-x-4">
                 {navItems.map(item => (
                   <NavigationMenuItem key={item.id}>
-                    <NavigationMenuLink 
-                      className={`${navigationMenuTriggerStyle()} ${
-                        isScrolled 
-                          ? "text-gray-800 hover:text-[#3A6E5A] bg-transparent" 
-                          : "text-white hover:text-white bg-transparent hover:bg-white/10 drop-shadow-md font-medium"
-                      }`}
-                      onClick={() => handleNavClick(item.id)}
-                    >
-                      {item.label}
-                    </NavigationMenuLink>
+                    {item.isLink ? (
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to={item.path}
+                          className={`${
+                            isScrolled 
+                              ? "text-gray-800 hover:text-[#3A6E5A]" 
+                              : "text-white hover:text-[#A8D5BA] drop-shadow-md"
+                          } px-4 py-2 font-medium transition-colors`}
+                        >
+                          {item.label}
+                        </Link>
+                      </NavigationMenuLink>
+                    ) : (
+                      <NavigationMenuLink 
+                        className={`${
+                          isScrolled 
+                            ? "text-gray-800 hover:text-[#3A6E5A]" 
+                            : "text-white hover:text-[#A8D5BA] drop-shadow-md"
+                        } px-4 py-2 font-medium transition-colors`}
+                        onClick={() => handleNavClick(item.id, item.isLink)}
+                      >
+                        {item.label}
+                      </NavigationMenuLink>
+                    )}
                   </NavigationMenuItem>
                 ))}
-              </NavigationMenuList>
+              </div>
             </NavigationMenu>
           )}
 
@@ -108,17 +118,32 @@ export const Navbar = ({ onScrollToSection }: NavbarProps) => {
           } backdrop-blur-md shadow-md py-4 px-4 animate-fade-in-up`}>
             <nav className="flex flex-col space-y-3">
               {navItems.map(item => (
-                <button
-                  key={item.id}
-                  onClick={() => handleNavClick(item.id)}
-                  className={`${
-                    isScrolled 
-                      ? "text-gray-800 hover:text-[#3A6E5A]" 
-                      : "text-white hover:text-[#A8D5BA]"
-                  } py-2 text-left transition-colors`}
-                >
-                  {item.label}
-                </button>
+                item.isLink ? (
+                  <Link
+                    key={item.id}
+                    to={item.path}
+                    className={`${
+                      isScrolled 
+                        ? "text-gray-800 hover:text-[#3A6E5A]" 
+                        : "text-white hover:text-[#A8D5BA]"
+                    } py-2 text-left transition-colors`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <button
+                    key={item.id}
+                    onClick={() => handleNavClick(item.id, item.isLink)}
+                    className={`${
+                      isScrolled 
+                        ? "text-gray-800 hover:text-[#3A6E5A]" 
+                        : "text-white hover:text-[#A8D5BA]"
+                    } py-2 text-left transition-colors`}
+                  >
+                    {item.label}
+                  </button>
+                )
               ))}
             </nav>
           </div>

@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",  
-    "build": "vite build",  
+    "dev": "vite",
+    "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -40,13 +40,17 @@
     "@radix-ui/react-toggle-group": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.4",
     "@tanstack/react-query": "^5.56.2",
+    "buffer": "^6.0.3",
     "caniuse-lite": "^1.0.30001710",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
+    "cors": "^2.8.5",
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.3.0",
+    "express": "^5.1.0",
     "framer-motion": "^12.6.3",
+    "front-matter": "^4.0.2",
     "gray-matter": "^4.0.3",
     "input-otp": "^1.2.4",
     "lucide-react": "^0.462.0",
@@ -56,10 +60,13 @@
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
     "react-hook-form": "^7.53.0",
+    "react-markdown": "^10.1.0",
     "react-resizable-panels": "^2.1.3",
     "react-router-dom": "^7.4.1",
     "recharts": "^2.12.7",
+    "rehype-raw": "^7.0.0",
     "sonner": "^1.5.0",
+    "sqlite3": "^5.1.7",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.3",
@@ -67,7 +74,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
-    "@tailwindcss/typography": "^0.5.15",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/gtag.js": "^0.0.20",
     "@types/node": "^22.14.0",
     "@types/react": "^18.3.3",
@@ -84,6 +91,20 @@
     "tailwindcss": "^3.4.11",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
-    "vite": "^5.4.1"
-  }
+    "vite": "^5.4.1",
+    "vite-plugin-node-polyfills": "^0.23.0"
+  },
+  "description": "## Project info",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Molchanie63/khaustova-matrix.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Molchanie63/khaustova-matrix/issues"
+  },
+  "homepage": "https://github.com/Molchanie63/khaustova-matrix#readme"
 }

@@ -38,7 +38,7 @@ const Index = () => {
           property="og:description"
           content="Погрузитесь в тайны чисел и раскройте истинное предназначение через матрицу личности с помощью цифрового психоанализа."
         />
-        <meta property="og:image" content="/images/og-image.jpg" /> {/* Замени на реальное изображение */}
+        <meta property="og:image" content="/images/og-image.jpg" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://khaustova-matrix.ru" />
         <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
@@ -146,7 +146,7 @@ const Index = () => {
         <CalculatorSection />
 
         {/* Блог секция */}
-        <BlogSection />
+        <BlogSection showBackButton={false} limit={3} />
 
         {/* Часто задаваемые вопросы */}
         <FaqSection />
@@ -289,6 +289,7 @@ const Index = () => {
         </footer>
       </div>
     </>
+    
   );
 };
 

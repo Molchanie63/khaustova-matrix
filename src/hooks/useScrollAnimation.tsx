@@ -1,7 +1,9 @@
-
 import { useEffect, useRef, useState } from "react";
 
-export const useScrollAnimation = <T extends HTMLElement>(threshold = 0.1) => {
+export const useScrollAnimation = <T extends HTMLElement>(
+  threshold: number = 0.1,
+  options: IntersectionObserverInit = { rootMargin: "200px" }
+) => {
   const ref = useRef<T>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -15,6 +17,7 @@ export const useScrollAnimation = <T extends HTMLElement>(threshold = 0.1) => {
       },
       {
         threshold,
+        ...options,
       }
     );
 
@@ -28,7 +31,7 @@ export const useScrollAnimation = <T extends HTMLElement>(threshold = 0.1) => {
         observer.unobserve(currentRef);
       }
     };
-  }, [threshold]);
+  }, [threshold, options]);
 
   return { ref, isVisible };
 };

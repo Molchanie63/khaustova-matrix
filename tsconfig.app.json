@@ -21,7 +21,8 @@
       "@/*": ["./src/*"]
     },
     "types": ["node", "react", "react-dom", "gtag.js"],
-    "allowSyntheticDefaultImports": true // Добавляем сюда
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true
   },
   "include": ["src"]
 }

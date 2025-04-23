@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -21,49 +20,54 @@ export const CalculatorSection = () => {
   };
 
   return (
-    <section id="calculator" className="py-20 bg-gray-100">
-      <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-10">
+    <section
+      id="calculator"
+      className="py-12 sm:py-16 lg:py-20 relative overflow-hidden"
+    >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+        <div className="max-w-full relative z-10">
+          <div className="text-center mb-8 sm:mb-12">
             <div className="flex justify-center mb-4">
-              <div className="w-20 h-1 bg-gradient-to-r from-[#5D9B89] to-[#3A6E5A] rounded-full"></div>
+              <div className="w-24 h-0.5 bg-primary-gradient rounded-full"></div>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#4A6D5C] to-[#7FB5A4] uppercase tracking-wide">
-              ПОПРОБУЙ САМ — НАЧНИ С ЦИФР
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-['Montserrat'] font-extrabold text-primary-gradient uppercase tracking-tight animate-recipe-text-fade-in">
+              Рассчитай свою матрицу
             </h2>
-            <p className="text-lg text-gray-700 mb-10 leading-relaxed">
-              Хочешь увидеть свою матрицу? Введи дату рождения в калькулятор ниже — и получи свои числа прямо сейчас. Это бесплатно и занимает минуту. Всё остальное — как они работают и что значат — я расскажу на консультации.
+            <p className="text-base sm:text-lg lg:text-xl text-gray-700 mt-4 sm:mt-6 leading-relaxed animate-text-fade-in animate-delay-100">
+              Узнай свои числа за минуту — просто введи дату рождения. Бесплатно!
             </p>
           </div>
-          
-          <div className="bg-white/90 backdrop-blur-sm p-4 sm:p-8 rounded-2xl shadow-xl border border-gray-200 overflow-x-hidden">
-            <BirthdateForm 
+
+          <div className="p-4 sm:p-6 lg:p-8">
+            <BirthdateForm
+              key="birthdate-form"
               birthdate={birthdate}
               setBirthdate={setBirthdate}
               handleCalculate={handleCalculate}
             />
-            
+
             {showResult && matrixResult && (
-              <div className="overflow-x-auto pb-4">
+              <div className="pb-4 sm:pb-6 lg:pb-8">
                 <MatrixResults matrixResult={matrixResult} />
               </div>
             )}
-            
-            <div className="text-center mt-6">
-              <Button className="bg-gradient-to-r from-[#5D9B89] to-[#3A6E5A] hover:from-[#4A6D5C] hover:to-[#2D5542] rounded-xl shadow-md uppercase text-white transition-colors">
+
+            <div className="text-center mt-6 sm:mt-8 lg:mt-10">
+              <Button
+                asChild
+                className="bg-primary-gradient hover:bg-[#8CCFB5] rounded-xl text-white uppercase btn-neo btn-rounded btn-3d neon-glow text-fluid-base active:scale-95 transition-all duration-300"
+                aria-label="Записаться на консультацию через Telegram"
+              >
                 <a
                   href="https://t.me/NeikaSparkBot"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center"
                 >
-                  Рассчитать полную матрицу
+                  Записаться на консультацию
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
-              <p className="mt-4 text-gray-600">
-                Пиши сюда: <a href="https://t.me/NeikaSparkBot" target="_blank" rel="noopener noreferrer" className="text-[#5D9B89] hover:underline font-medium">@NeikaSparkBot</a>
-              </p>
             </div>
           </div>
         </div>

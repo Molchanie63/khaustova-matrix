@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
-import animate from "tailwindcss-animate"; // Добавляем импорт плагина
+import animate from "tailwindcss-animate";
+import typography from "@tailwindcss/typography"; // Добавляем плагин typography
 
 export default {
   darkMode: ["class"],
@@ -19,6 +20,9 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        serif: ["Playfair Display", "serif"], // Добавляем Playfair Display для заголовков
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -83,7 +87,92 @@ export default {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      // Добавляем кастомизацию для prose (Tailwind Typography)
+      prose: {
+        DEFAULT: {
+          css: {
+            // Стили для заголовков
+            h1: {
+              fontFamily: "'Playfair Display', serif",
+              color: "#1F2937", // Тёмно-серый цвет для заголовков
+              fontSize: "2.5rem",
+              marginBottom: "1.5rem",
+            },
+            h2: {
+              fontFamily: "'Playfair Display', serif",
+              color: "#1F2937",
+              fontSize: "1.75rem",
+              marginTop: "2rem",
+              marginBottom: "1rem",
+            },
+            h3: {
+              fontFamily: "'Playfair Display', serif",
+              color: "#1F2937",
+              fontSize: "1.5rem",
+              marginTop: "1.5rem",
+              marginBottom: "0.75rem",
+            },
+            // Стили для абзацев
+            p: {
+              color: "#4B5563", // Серый цвет для текста
+              lineHeight: "1.75",
+              marginBottom: "1.5rem",
+            },
+            // Стили для списков
+            ul: {
+              marginBottom: "1.5rem",
+              paddingLeft: "1.5rem",
+            },
+            ol: {
+              marginBottom: "1.5rem",
+              paddingLeft: "1.5rem",
+            },
+            li: {
+              color: "#4B5563",
+              marginBottom: "0.5rem",
+            },
+            // Стили для ссылок
+            a: {
+              color: "#5D9B89", // Основной цвет твоей палитры
+              textDecoration: "underline",
+              ":hover": {
+                color: "#3A6E5A", // Более тёмный оттенок при наведении
+              },
+            },
+            // Стили для цитат
+            blockquote: {
+              borderLeft: "4px solid #5D9B89",
+              paddingLeft: "1rem",
+              color: "#4B5563",
+              fontStyle: "italic",
+              marginBottom: "1.5rem",
+            },
+            // Стили для кода
+            code: {
+              backgroundColor: "#F0F7F4",
+              padding: "0.2rem 0.4rem",
+              borderRadius: "0.25rem",
+              color: "#3A6E5A",
+            },
+            pre: {
+              backgroundColor: "#F0F7F4",
+              padding: "1rem",
+              borderRadius: "0.5rem",
+              color: "#3A6E5A",
+              marginBottom: "1.5rem",
+            },
+          },
+        },
+        lg: {
+          css: {
+            h1: { fontSize: "2.5rem" },
+            h2: { fontSize: "1.75rem" },
+            h3: { fontSize: "1.5rem" },
+            p: { fontSize: "1.125rem" },
+          },
+        },
+      },
     },
   },
-  plugins: [animate], // Заменяем require на импортированный модуль
+  plugins: [animate, typography], // Добавляем typography в список плагинов
 } satisfies Config;

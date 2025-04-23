@@ -12,3 +12,8 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+User-agent: *
+Disallow: /admin
+Allow: /
+Sitemap: https://khaustova-matrix.ru/sitemap.xml
