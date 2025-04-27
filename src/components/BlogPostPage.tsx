@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { ArrowLeft, ArrowRight, Share2, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import * as matter from "gray-matter";
+import matter from "gray-matter";
 import { useEffect, useState } from "react";
 
 interface BlogPost {
@@ -27,7 +27,10 @@ const BlogPostPage = () => {
     const loadPosts = async () => {
       try {
         // Динамически импортируем все Markdown-файлы из папки src/data/blog
-        const context = import.meta.glob("/src/data/blog/*.md", { as: "raw", eager: false });
+        const context = import.meta.glob("/src/data/blog/*.md", {
+          query: "?raw",
+          import: "default",
+        });
         const loadedPosts: BlogPost[] = [];
 
         for (const [filePath, loadModule] of Object.entries(context)) {

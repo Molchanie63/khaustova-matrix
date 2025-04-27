@@ -82,7 +82,7 @@ const BirthdateForm = ({ birthdate, setBirthdate, handleCalculate }: BirthdateFo
           </div>
           <Button
             type="submit"
-            className="h-10 sm:h-11 lg:h-12 bg-primary-gradient hover:bg-[#8CCFB5] rounded-xl text-white uppercase btn-neo btn-rounded btn-3d neon-glow text-fluid-lg active:scale-95 transition-all duration-300"
+            className="h-10 sm:h-11 lg:h-12 rounded-xl text-fluid-lg uppercase btn-neo btn-rounded btn-3d neon-glow active:scale-95 transition-all duration-300 btn-primary"
             aria-label="Рассчитать матрицу"
           >
             Рассчитать
